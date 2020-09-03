@@ -1,5 +1,7 @@
 package com.github.gunghorse.pathes.user;
 
+import com.github.gunghorse.pathes.sessions.Session;
+import com.github.gunghorse.pathes.sessions.SessionRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
