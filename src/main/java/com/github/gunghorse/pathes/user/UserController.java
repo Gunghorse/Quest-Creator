@@ -23,13 +23,12 @@ public class UserController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public boolean login(@RequestBody User user){
-        return (!userRepository.findByLogin(user.getLogin()).isEmpty() &&
-        !userRepository.findByPassword(user.getPassword()).isEmpty());
+        return userRepository.findByLoginAndPassword(user.getLogin(), user.getPassword()) != null;
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public boolean register(@RequestBody User user){
-        if(userRepository.findByLogin(user.getLogin()).isEmpty()){
+        if(userRepository.findByLogin(user.getLogin()) != null){
             userRepository.save(user);
             return true;
         }

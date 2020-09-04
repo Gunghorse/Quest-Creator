@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection="quests")
@@ -11,10 +12,10 @@ import java.util.List;
 public class Quest {
     @Id
     private String id;
-    private List<String> questPointsID;
     private String title;
     private String description;
     private String creatorID;
+    private List<QuestPoint> questPoints = new ArrayList<>();
 
     public Quest(String title, String description, String creatorID) {
         this.title = title;
@@ -26,16 +27,16 @@ public class Quest {
         this.creatorID = creatorID;
     }
 
-    public void addQuestPointID(String questPointsID) {
-        this.questPointsID.add(questPointsID);
+    public void addQuestPoint(QuestPoint questPoint) {
+        this.questPoints.add(questPoint);
     }
 
     public String getId() {
         return id;
     }
 
-    public List<String> getQuestPointsID() {
-        return questPointsID;
+    public List<QuestPoint> getQuestPoints() {
+        return questPoints;
     }
 
     public String getTitle() {

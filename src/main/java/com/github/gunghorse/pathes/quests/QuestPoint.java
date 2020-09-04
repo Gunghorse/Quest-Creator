@@ -2,7 +2,9 @@ package com.github.gunghorse.pathes.quests;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
-import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="questPoint")
@@ -13,22 +15,20 @@ public class QuestPoint {
     private String pointStatus;
     private String title;
     private String description;
-    private Point location;
+    @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
+    private GeoJsonPoint location;
     private String questID;
     private String parentPointID;
 
     public QuestPoint(String pointStatus,
                       String title,
                       String description,
-                      double longitude,
-                      double latitude,
-                      String questID,
+                      GeoJsonPoint location,
                       String parentPointID) {
         this.pointStatus = pointStatus;
         this.title = title;
         this.description = description;
-        this.location = new Point(latitude, longitude);
-        this.questID = questID;
+        this.location = location;
         this.parentPointID = parentPointID;
     }
 
@@ -52,7 +52,7 @@ public class QuestPoint {
         return description;
     }
 
-    public Point getLocation() {
+    public GeoJsonPoint getLocation() {
         return location;
     }
 
