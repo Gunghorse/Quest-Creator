@@ -5,11 +5,14 @@ import com.github.gunghorse.pathes.sessions.SessionRepository;
 import com.github.gunghorse.pathes.user.User;
 import com.github.gunghorse.pathes.user.UserRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResults;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,14 +41,13 @@ public class QuestController {
      * @param pointID
      * @return
      */
-    /*@RequestMapping(value = "/near/{pointID}", method = RequestMethod.GET)
-    public GeoResults<QuestPoint> getNearestPoint(@PathVariable String pointID){
-        Distance distance = new Distance(0.3, Metrics.KILOMETERS);
+    @RequestMapping(value = "/near/{pointID}", method = RequestMethod.GET)
+    public List<QuestPoint> getNearestPoint(@PathVariable String pointID){
         GeoJsonPoint currentPoint = questPointRepository.findById(pointID).get().getLocation();
-        GeoResults<QuestPoint> questPoints = questPointRepository.findByLocationNear(currentPoint,
-                distance);
+        List<QuestPoint> questPoints = questPointRepository.findByLocationNear(currentPoint,
+                300);
         return questPoints;
-    }*/
+    }
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)

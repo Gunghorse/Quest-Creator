@@ -5,6 +5,7 @@ import org.springframework.data.geo.GeoResults;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -18,7 +19,8 @@ public interface QuestPointRepository extends MongoRepository<QuestPoint, String
                                                 @Param("title") String title,
                                                 @Param("location") GeoJsonPoint location);
 
-    GeoResults<QuestPoint> findByLocationNear(@Param("location") GeoJsonPoint location, @Param("distance") Distance distance);
+    @Query("{'location' : {$geoNear:?0 , $maxDistance:?1}}")
+    List<QuestPoint> findByLocationNear(@Param("location") GeoJsonPoint location, @Param("distance") int distance);
     //TODO add new features from this documentation
     // https://docs.spring.io/spring-data/mongodb/docs/1.2.0.RELEASE/reference/html/mongo.repositories.html
 }

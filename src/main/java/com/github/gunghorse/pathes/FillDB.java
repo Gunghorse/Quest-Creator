@@ -8,10 +8,14 @@ import com.github.gunghorse.pathes.sessions.Session;
 import com.github.gunghorse.pathes.sessions.SessionRepository;
 import com.github.gunghorse.pathes.user.User;
 import com.github.gunghorse.pathes.user.UserRepository;
+import com.mongodb.client.model.Indexes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.geo.*;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.index.GeospatialIndex;
+import org.springframework.data.mongodb.core.index.IndexDefinition;
 import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.stereotype.Component;
 
@@ -39,6 +43,7 @@ public class FillDB implements CommandLineRunner {
         questRepository.deleteAll();
         questPointRepository.deleteAll();
         //##################################
+
 
         User dimonium = new User("Dimonium-239", "1234");
         User darkStalker = new User("DarkstalkeR", "1234");
@@ -118,10 +123,10 @@ public class FillDB implements CommandLineRunner {
 
         sessionRepository.saveAll(Arrays.asList(stalkerSession, dimoniumSession));
 
-        /*GeoJsonPoint location = new GeoJsonPoint(50.065514001, 19.941617002);
-        Distance distance = new Distance(0.3, Metrics.KILOMETERS);
-        GeoResults<QuestPoint> gr = questPointRepository.findByLocationNear(location, distance);
-        System.out.println(gr);
-*/
+        GeoJsonPoint location = new GeoJsonPoint(50.065514001, 19.941617002);
+        //Distance distance = new Distance(0.3, Metrics.KILOMETERS);
+        //List<QuestPoint> gr = questPointRepository.findByLocationNear(location, 100);
+        //System.out.println(gr);
+
     }
 }
