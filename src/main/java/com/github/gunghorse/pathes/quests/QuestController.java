@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/quest")
@@ -80,6 +81,34 @@ public class QuestController {
                 questID, questPoint.getTitle(), questPoint.getLocation()).get(0);
         quest.addQuestPoint(questPointSaved);
         questRepository.save(quest);
+    }
+
+    @RequestMapping(value = "/update/point/{pointID}", method = RequestMethod.PUT)
+    public void updatePoint(@PathVariable String pointID, @RequestParam Map<String, String> updateInfo){
+        QuestPoint questPointToUpdate = questPointRepository.findById(pointID).get();
+        if(updateInfo.containsKey("title"))
+            questPointToUpdate.setTitle(updateInfo.get("title"));
+        if(updateInfo.containsKey("description"))
+            questPointToUpdate.setDescription(updateInfo.get("description"));
+        if(updateInfo.containsKey("lat")) {
+            GeoJsonPoint loc = new GeoJsonPoint(
+                    Double.parseDouble(updateInfo.get("lat")),
+                    questPointToUpdate.getLocation().getY());
+            questPointToUpdate.setLocation(loc);
+        }
+        if(updateInfo.containsKey("long")){
+            GeoJsonPoint loc = new GeoJsonPoint(
+                    questPointToUpdate.getLocation().getX(),
+                    Double.parseDouble(updateInfo.get("long")));
+            questPointToUpdate.setLocation(loc);
+        }
+        if(updateInfo.containsKey("parentPointID"))
+            questPointToUpdate.setParentPointID(updateInfo.get("parentPointID"));
+        if(updateInfo.containsKey("questID"))
+            questPointToUpdate.setParentPointID(updateInfo.get("questID"));
+        if(updateInfo.containsKey("status"))
+            questPointToUpdate.setParentPointID(updateInfo.get("status"));
+        questPointRepository.save(questPointToUpdate);
     }
 
 

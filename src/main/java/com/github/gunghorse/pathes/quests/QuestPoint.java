@@ -33,9 +33,6 @@ public class QuestPoint {
         this.parentPointID = parentPointID;
     }
 
-    public void setQuestID(String questID) {
-        this.questID = questID;
-    }
 
     public String getPointID() {
         return pointID;
@@ -45,23 +42,47 @@ public class QuestPoint {
         return pointStatus;
     }
 
+    public void setPointStatus(String pointStatus) {
+        this.pointStatus = pointStatus;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public GeoJsonPoint getLocation() {
         return location;
+    }
+
+    public void setLocation(GeoJsonPoint location) {
+        this.location = location;
     }
 
     public String getQuestID() {
         return questID;
     }
 
+    public void setQuestID(String questID) {
+        this.questID = questID;
+    }
+
     public String getParentPointID() {
         return parentPointID;
+    }
+
+    public void setParentPointID(String parentPointID) {
+        this.parentPointID = parentPointID;
     }
 }
