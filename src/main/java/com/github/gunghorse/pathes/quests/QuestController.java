@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -36,20 +37,6 @@ public class QuestController {
         this.userRepository = userRepository;
     }
 
-    /**
-     *  TODO: figured out why $near query did not work
-     * @param pointID
-     * @return
-     */
-    @RequestMapping(value = "/near/{pointID}", method = RequestMethod.GET)
-    public List<QuestPoint> getNearestPoint(@PathVariable String pointID){
-        GeoJsonPoint currentPoint = questPointRepository.findById(pointID).get().getLocation();
-        List<QuestPoint> questPoints = questPointRepository.findByLocationNear(currentPoint,
-                300);
-        return questPoints;
-    }
-
-
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Quest> getAllQuests(){
         return questRepository.findAll();
@@ -65,6 +52,19 @@ public class QuestController {
         questRepository.save(quest);
     }
 
+
+    @RequestMapping(value = "/point/delete/{pointID}", method = RequestMethod.DELETE)
+    public void deletePoint(@PathVariable String pointID){
+        questPointRepository.deleteById(pointID);
+    }
+
+    @RequestMapping(value = "/delete/{questID}")
+    public void deleteQuest(@PathVariable String questID){
+        Quest quest = questRepository.findById(questID).get();
+        for (QuestPoint point : quest.getQuestPoints())
+            questPointRepository.delete(point);
+        questRepository.delete(quest);
+    }
 
     @RequestMapping(value = "/get/points", method = RequestMethod.GET)
     public List<QuestPoint> getAllQuestPoints(){
@@ -83,9 +83,15 @@ public class QuestController {
     }
 
 
+    /**
+     * BUG: if quest is deleted Jackson could not convert to json
+     * @param userID
+     * @return
+     */
     @RequestMapping(value = "/session/{userID}", method = RequestMethod.GET)
     public List<Session> getUserSessions(@PathVariable String userID){
-        return sessionRepository.findByUser(userRepository.findByLogin(userID));
+        List<Session> sessionsOfUser = sessionRepository.findByUser(userRepository.findByLogin(userID));
+        return sessionsOfUser;
     }
 
     @RequestMapping(value = "/start/session/{questID}", method = RequestMethod.POST)
@@ -105,4 +111,43 @@ public class QuestController {
         endedSession.setEnded(true);
         sessionRepository.save(endedSession);
     }
+
+
+    @RequestMapping(value = "/near/{pointID}", method = RequestMethod.GET)
+    public List<QuestPoint> getNearestPoint(@PathVariable String pointID){
+        GeoJsonPoint currentPoint = questPointRepository.findById(pointID).get().getLocation();
+        List<QuestPoint> questPoints = questPointRepository.findByLocationNear(currentPoint,
+                300);
+        return questPoints;
+    }
+
+    /**
+     * URL looks like:
+     *      /quest/isOnPoint?coordinates=50.065514,19.941228
+     *
+     * @param coordinates
+     * @return
+     */
+    @RequestMapping(value = "/isOnPoint", method = RequestMethod.GET)
+    public boolean isOnPoint(@RequestParam double[] coordinates){
+        List<QuestPoint> questPoints = questPointRepository
+                .findByLocationNear(new GeoJsonPoint(coordinates[0], coordinates[1]), 6);
+        return !questPoints.isEmpty();
+    }
+
+    /**
+     *  URL looks like:
+     *         /quest/pointsInRadius?coordinates=50.065514,19.941228&radius=150
+     *
+     * @param coordinates
+     * @param radius
+     * @return
+     */
+    @RequestMapping(value = "/pointsInRadius", method = RequestMethod.GET)
+    public List<QuestPoint> getPointsInRadius(@RequestParam double[] coordinates, @RequestParam int radius){
+        List<QuestPoint> questPoints = questPointRepository
+                .findByLocationNear(new GeoJsonPoint(coordinates[0], coordinates[1]), radius);
+        return questPoints;
+    }
+
 }

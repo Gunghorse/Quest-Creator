@@ -2,6 +2,7 @@ package com.github.gunghorse.pathes.quests;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Quest {
     private String title;
     private String description;
     private String creatorID;
+    @DBRef
     private List<QuestPoint> questPoints = new ArrayList<>();
 
     public Quest(String title, String description, String creatorID) {
