@@ -13,7 +13,7 @@ API that alowe to manupulate quests in quest creator database.
     - DELETE  /quest/delete/{questID}
     - GET     /quest/get/points
     - POST    /quest/add/point/{questID}
-    - PUT     /quest/update/{pointID}?title=New Title&description=Wow its new too
+    - PUT     /quest/update/{questID}?title=New Title&description=Wow its new too
     - PUT     /quest/update/point/{pointID}?title=New Title&status=visible
     - GET     /quest/session/{userID}
     - POST    /quest/session/start/{questID}
