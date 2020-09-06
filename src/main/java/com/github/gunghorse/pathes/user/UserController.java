@@ -27,7 +27,7 @@ public class UserController {
 
     /**
      * URL looks like:
-     *      /user/login
+     *      POST /user/login
      *
      * Check if login and password correct and if such user is in system
      * @param user send in POST body object of User
@@ -40,7 +40,7 @@ public class UserController {
 
     /**
      * URL looks like:
-     *      /user/register
+     *      POST /user/register
      *
      * Check if such user is not present in system and then added him
      * @param user send in POST body object of User

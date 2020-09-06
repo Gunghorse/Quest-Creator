@@ -139,7 +139,7 @@ public class QuestController {
     }
     /**
      * URL looks like:
-     *      PUT /quest/update/{pointID}?title=New Title&description=Wow its new too
+     *      PUT /quest/update/{questID}?title=New Title&description=Wow its new too
      *
      * Gives ability to edit points.
      * @param questID ID of editable quest
