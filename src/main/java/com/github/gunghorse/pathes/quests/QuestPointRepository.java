@@ -21,6 +21,7 @@ public interface QuestPointRepository extends MongoRepository<QuestPoint, String
 
     @Query("{'location' : {$geoNear:?0 , $maxDistance:?1}}")
     List<QuestPoint> findByLocationNear(@Param("location") GeoJsonPoint location, @Param("distance") int distance);
+
     //TODO add new features from this documentation
     // https://docs.spring.io/spring-data/mongodb/docs/1.2.0.RELEASE/reference/html/mongo.repositories.html
 }
