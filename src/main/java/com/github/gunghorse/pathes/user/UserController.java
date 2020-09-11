@@ -22,7 +22,7 @@ public class UserController {
      */
     @RequestMapping(value="", method = RequestMethod.GET)
     public List<User> getAllUsers(){
-        return this.userRepository.findAll();
+        return (List<User>) this.userRepository.findAll();
     }
 
     /**

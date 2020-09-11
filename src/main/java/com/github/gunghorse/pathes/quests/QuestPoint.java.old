@@ -1,12 +1,7 @@
-package com.github.gunghorse.pathes.quests;
+/*package com.github.gunghorse.pathes.quests;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
-import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
-import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="questPoint")
 @TypeAlias("questPoint")
@@ -86,3 +81,4 @@ public class QuestPoint {
         this.parentPointID = parentPointID;
     }
 }
+*/

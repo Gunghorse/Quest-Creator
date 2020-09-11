@@ -1,55 +1,58 @@
 package com.github.gunghorse.pathes;
 
-import com.github.gunghorse.pathes.quests.Quest;
-import com.github.gunghorse.pathes.quests.QuestPoint;
-import com.github.gunghorse.pathes.quests.QuestPointRepository;
-import com.github.gunghorse.pathes.quests.QuestRepository;
-import com.github.gunghorse.pathes.sessions.Session;
+import com.github.gunghorse.pathes.sessions.CreatorRepository;
 import com.github.gunghorse.pathes.sessions.SessionRepository;
-import com.github.gunghorse.pathes.user.User;
-import com.github.gunghorse.pathes.user.UserRepository;
-import com.mongodb.client.model.Indexes;
+import com.github.gunghorse.pathes.user.*;
+import com.github.gunghorse.pathes.quests.*;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.data.geo.*;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
-import org.springframework.data.mongodb.core.index.GeospatialIndex;
-import org.springframework.data.mongodb.core.index.IndexDefinition;
-import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.List;
 
-@Component // -8
+@Component
 public class FillDB implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private SessionRepository sessionRepository;
-    @Autowired
     private QuestRepository questRepository;
     @Autowired
-    private QuestPointRepository questPointRepository;
+    private SessionRepository sessionRepository;
+    @Autowired
+    private CreatorRepository creatorRepository;
+    /*@Autowired
+    private SessionRepository sessionRepository;
 
+    @Autowired
+    private QuestPointRepository questPointRepository;
+*/
     @Override
     public void run(String... args) throws Exception {
 
         // remove this lines to make your database longer than one session
         userRepository.deleteAll();
-        sessionRepository.deleteAll();
         questRepository.deleteAll();
-        questPointRepository.deleteAll();
-        //##################################
-
+        sessionRepository.deleteAll();
+        creatorRepository.deleteAll();
 
         User dimonium = new User("Dimonium-239", "1234");
         User darkStalker = new User("DarkstalkeR", "1234");
 
-        userRepository.saveAll(Arrays.asList(dimonium, darkStalker));
+        Quest kingsWay = new Quest("Droga królewska",
+                "Piękne zabytki po drodze od Barbakana do Wawela");
 
+        kingsWay.setCreator(dimonium);
+        darkStalker.startQuestSession(kingsWay);
+        userRepository.saveAll(Arrays.asList(dimonium, darkStalker));
+        questRepository.save(kingsWay);
+
+        //##################################
+
+
+/*
         Quest kingsWay = new Quest("Droga królewska",
                 "Piękne zabytki po drodze od Barbakana do Wawela",
                 "Dimonium-239");
@@ -117,8 +120,8 @@ public class FillDB implements CommandLineRunner {
         questPointRepository.saveAll(Arrays.asList(barbakan, bramaFloreanska, kosciolMariacki, sukiennice));
         questRepository.save(kingsWay);
 
-        Session stalkerSession = new Session(darkStalker, kingsWay);
-        Session dimoniumSession = new Session(dimonium, kingsWay);
+        SessionRel stalkerSession = new SessionRel(darkStalker, kingsWay);
+        SessionRel dimoniumSession = new SessionRel(dimonium, kingsWay);
         dimoniumSession.setEnded(true);
 
         sessionRepository.saveAll(Arrays.asList(stalkerSession, dimoniumSession));
@@ -127,6 +130,6 @@ public class FillDB implements CommandLineRunner {
         //Distance distance = new Distance(0.3, Metrics.KILOMETERS);
         //List<QuestPoint> gr = questPointRepository.findByLocationNear(location, 100);
         //System.out.println(gr);
-
+*/
     }
 }

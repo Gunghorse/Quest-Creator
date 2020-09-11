@@ -1,11 +1,10 @@
 package com.github.gunghorse.pathes.quests;
 
-import com.github.gunghorse.pathes.sessions.Session;
+import com.github.gunghorse.pathes.sessions.SessionRel;
 import com.github.gunghorse.pathes.sessions.SessionRepository;
 import com.github.gunghorse.pathes.user.User;
 import com.github.gunghorse.pathes.user.UserRepository;
 
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -298,3 +297,4 @@ public class QuestController {
     }
 
 }
+

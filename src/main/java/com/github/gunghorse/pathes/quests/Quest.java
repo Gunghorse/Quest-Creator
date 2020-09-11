@@ -1,44 +1,52 @@
 package com.github.gunghorse.pathes.quests;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.TypeAlias;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.github.gunghorse.pathes.user.User;
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Document(collection="quests")
-@TypeAlias("quest")
+import static org.neo4j.ogm.annotation.Relationship.INCOMING;
+
+
 public class Quest {
+
     @Id
-    private String id;
+    @GeneratedValue
+    private Long id;
     private String title;
     private String description;
-    private String creatorID;
-    @DBRef
-    private List<QuestPoint> questPoints = new ArrayList<>();
 
-    public Quest(String title, String description, String creatorID) {
+    @JsonIgnoreProperties({"quest","playing","creatures"})
+    @Relationship(type = "PLAYING", direction = INCOMING)
+    private List<User> players = new ArrayList<>();
+
+    @JsonIgnoreProperties({"quest","playing","creatures"})
+    @Relationship(type = "CREATED_BY")
+    private User creator;
+
+    public Quest(String title, String description) {
         this.title = title;
         this.description = description;
-        this.creatorID = creatorID;
     }
 
-    public void setCreatorID(String creatorID) {
-        this.creatorID = creatorID;
+    public void setCreator(User creator){
+        this.creator = creator;
+        creator.addCreature(this);
     }
 
-    public void addQuestPoint(QuestPoint questPoint) {
-        this.questPoints.add(questPoint);
+    public void addPlayer(User player){
+        players.add(player);
     }
 
-    public String getId() {
+
+    public Long getId() {
         return id;
-    }
-
-    public List<QuestPoint> getQuestPoints() {
-        return questPoints;
     }
 
     public String getTitle() {
@@ -57,7 +65,4 @@ public class Quest {
         this.description = description;
     }
 
-    public String getCreatorID() {
-        return creatorID;
-    }
 }
