@@ -1,7 +1,5 @@
 package com.github.gunghorse.pathes.quests;
 
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.gunghorse.pathes.user.User;
 import org.neo4j.ogm.annotation.GeneratedValue;
@@ -12,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
-
 
 public class Quest {
 
@@ -43,7 +40,6 @@ public class Quest {
     public void addPlayer(User player){
         players.add(player);
     }
-
 
     public Long getId() {
         return id;
