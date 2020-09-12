@@ -1,11 +1,12 @@
 package com.github.gunghorse.pathes.sessions;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.github.gunghorse.pathes.Keys;
 import com.github.gunghorse.pathes.quests.Quest;
 import com.github.gunghorse.pathes.user.User;
 import org.neo4j.ogm.annotation.*;
 
-@RelationshipEntity(type = "CREATED_BY")
+@RelationshipEntity(type = Keys.CREATED_BY)
 public class CreatedRel {
 
     @Id

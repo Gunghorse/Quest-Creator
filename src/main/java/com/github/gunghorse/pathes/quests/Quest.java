@@ -1,10 +1,12 @@
 package com.github.gunghorse.pathes.quests;
 
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import com.github.gunghorse.pathes.quests.points.QuestPoint;
 import com.github.gunghorse.pathes.quests.points.QuestStartPoint;
+
+import com.github.gunghorse.pathes.Keys;
+
 import com.github.gunghorse.pathes.user.User;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
@@ -15,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
+
 
 @NodeEntity
 public class Quest {
@@ -29,8 +32,11 @@ public class Quest {
     @Relationship(type = "PLAYING", direction = INCOMING)
     private List<User> players = new LinkedList<>();
 
+    @Relationship(type = Keys.PLAYING, direction = INCOMING)
+    private List<User> players = new ArrayList<>();
+
     @JsonIgnoreProperties({"quest","playing","creatures"})
-    @Relationship(type = "CREATED_BY")
+    @Relationship(type = Keys.CREATED_BY)
     private User creator;
 
     @JsonIgnoreProperties({"quest","children","parents"})
@@ -54,6 +60,7 @@ public class Quest {
     public void addPlayer(User player){
         players.add(player);
     }
+
 
     public List<QuestPoint> getPoints() {
         return points;
