@@ -1,4 +1,4 @@
-package com.github.gunghorse.pathes.quests;
+package com.github.gunghorse.questCreator.quests;
 
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResults;

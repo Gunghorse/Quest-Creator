@@ -1,9 +1,9 @@
-package com.github.gunghorse.pathes.sessions;
+package com.github.gunghorse.questCreator.sessions;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.github.gunghorse.pathes.Keys;
-import com.github.gunghorse.pathes.quests.Quest;
-import com.github.gunghorse.pathes.user.User;
+import com.github.gunghorse.questCreator.Keys;
+import com.github.gunghorse.questCreator.quests.Quest;
+import com.github.gunghorse.questCreator.user.User;
 import org.neo4j.ogm.annotation.*;
 
 @RelationshipEntity(type = Keys.PLAYING)

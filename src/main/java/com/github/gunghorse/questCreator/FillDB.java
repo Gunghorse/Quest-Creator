@@ -1,9 +1,9 @@
-package com.github.gunghorse.pathes;
+package com.github.gunghorse.questCreator;
 
-import com.github.gunghorse.pathes.sessions.CreatorRepository;
-import com.github.gunghorse.pathes.sessions.SessionRepository;
-import com.github.gunghorse.pathes.user.*;
-import com.github.gunghorse.pathes.quests.*;
+import com.github.gunghorse.questCreator.sessions.CreatorRepository;
+import com.github.gunghorse.questCreator.sessions.SessionRepository;
+import com.github.gunghorse.questCreator.user.*;
+import com.github.gunghorse.questCreator.quests.*;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

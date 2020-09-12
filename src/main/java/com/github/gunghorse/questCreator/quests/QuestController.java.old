@@ -1,9 +1,9 @@
-package com.github.gunghorse.pathes.quests;
+package com.github.gunghorse.questCreator.quests;
 
-import com.github.gunghorse.pathes.sessions.SessionRel;
-import com.github.gunghorse.pathes.sessions.SessionRepository;
-import com.github.gunghorse.pathes.user.User;
-import com.github.gunghorse.pathes.user.UserRepository;
+import com.github.gunghorse.questCreator.sessions.SessionRel;
+import com.github.gunghorse.questCreator.sessions.SessionRepository;
+import com.github.gunghorse.questCreator.user.User;
+import com.github.gunghorse.questCreator.user.UserRepository;
 
 import org.springframework.web.bind.annotation.*;
 

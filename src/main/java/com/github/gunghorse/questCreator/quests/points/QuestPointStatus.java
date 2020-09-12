@@ -1,4 +1,4 @@
-package com.github.gunghorse.pathes.quests.points;
+package com.github.gunghorse.questCreator.quests.points;
 
 public enum QuestPointStatus {
     VISITED,    // always visible

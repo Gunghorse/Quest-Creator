@@ -1,7 +1,6 @@
-package com.github.gunghorse.pathes.quests;
+package com.github.gunghorse.questCreator.quests;
 
-import com.github.gunghorse.pathes.quests.Quest;
-import com.github.gunghorse.pathes.quests.points.QuestStartPoint;
+import com.github.gunghorse.questCreator.quests.points.QuestStartPoint;
 import org.neo4j.ogm.annotation.*;
 
 @RelationshipEntity(type = "STARTING_FROM")

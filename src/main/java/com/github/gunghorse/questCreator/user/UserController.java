@@ -1,4 +1,4 @@
-package com.github.gunghorse.pathes.user;
+package com.github.gunghorse.questCreator.user;
 
 import org.springframework.web.bind.annotation.*;
 

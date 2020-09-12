@@ -1,4 +1,4 @@
-package com.github.gunghorse.pathes;
+package com.github.gunghorse.questCreator;
 
 public class Keys {
     public static final String PLAYING = "PLAYING";

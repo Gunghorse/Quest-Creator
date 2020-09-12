@@ -1,7 +1,7 @@
-package com.github.gunghorse.pathes.quests.points;
+package com.github.gunghorse.questCreator.quests.points;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.github.gunghorse.pathes.quests.Quest;
+import com.github.gunghorse.questCreator.quests.Quest;
 import org.neo4j.ogm.annotation.*;
 
 @RelationshipEntity(type = "BELONGS_TO")

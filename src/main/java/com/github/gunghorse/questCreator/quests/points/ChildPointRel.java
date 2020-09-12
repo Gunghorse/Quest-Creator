@@ -1,4 +1,4 @@
-package com.github.gunghorse.pathes.quests.points;
+package com.github.gunghorse.questCreator.quests.points;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.neo4j.ogm.annotation.*;

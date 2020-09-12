@@ -1,4 +1,4 @@
-package com.github.gunghorse.pathes.user;
+package com.github.gunghorse.questCreator.user;
 
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;

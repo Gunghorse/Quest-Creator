@@ -1,13 +1,13 @@
-package com.github.gunghorse.pathes.quests;
+package com.github.gunghorse.questCreator.quests;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import com.github.gunghorse.pathes.quests.points.QuestPoint;
-import com.github.gunghorse.pathes.quests.points.QuestStartPoint;
+import com.github.gunghorse.questCreator.quests.points.QuestPoint;
+import com.github.gunghorse.questCreator.quests.points.QuestStartPoint;
 
-import com.github.gunghorse.pathes.Keys;
+import com.github.gunghorse.questCreator.Keys;
 
-import com.github.gunghorse.pathes.user.User;
+import com.github.gunghorse.questCreator.user.User;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -31,9 +31,6 @@ public class Quest {
     @JsonIgnoreProperties({"quest","playing","creatures"})
     @Relationship(type = "PLAYING", direction = INCOMING)
     private List<User> players = new LinkedList<>();
-
-    @Relationship(type = Keys.PLAYING, direction = INCOMING)
-    private List<User> players = new ArrayList<>();
 
     @JsonIgnoreProperties({"quest","playing","creatures"})
     @Relationship(type = Keys.CREATED_BY)

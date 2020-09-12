@@ -1,8 +1,8 @@
-package com.github.gunghorse.pathes.user;
+package com.github.gunghorse.questCreator.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.github.gunghorse.pathes.Keys;
-import com.github.gunghorse.pathes.quests.Quest;
+import com.github.gunghorse.questCreator.Keys;
+import com.github.gunghorse.questCreator.quests.Quest;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;

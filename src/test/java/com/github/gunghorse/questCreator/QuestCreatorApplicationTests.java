@@ -1,10 +1,10 @@
-package com.github.gunghorse.pathes;
+package com.github.gunghorse.questCreator;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PathesApplicationTests {
+class QuestCreatorApplicationTests {
 
     @Test
     void contextLoads() {
