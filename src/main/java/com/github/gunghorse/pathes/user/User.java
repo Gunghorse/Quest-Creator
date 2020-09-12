@@ -1,6 +1,7 @@
 package com.github.gunghorse.pathes.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.github.gunghorse.pathes.Keys;
 import com.github.gunghorse.pathes.quests.Quest;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
@@ -23,11 +24,11 @@ public class User {
     private String password;
 
     @JsonIgnoreProperties({"user","players","creator"})
-    @Relationship(type = "PLAYING")
+    @Relationship(type = Keys.PLAYING)
     private List<Quest> playing = new ArrayList<>();
 
     @JsonIgnoreProperties({"user","players","creator"})
-    @Relationship(type = "CREATED_BY", direction = INCOMING)
+    @Relationship(type = Keys.CREATED_BY, direction = INCOMING)
     private List<Quest> creatures = new ArrayList<>();
 
     public User(String login, String password) {
