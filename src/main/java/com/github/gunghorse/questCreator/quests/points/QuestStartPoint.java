@@ -16,4 +16,9 @@ public class QuestStartPoint extends QuestPoint {
     public QuestStartPoint(QuestPointStatus pointStatus, String title, String description, Point location) {
         super(pointStatus, title, description, location);
     }
+
+    public void setQuestStartingFrom(Quest questStartingFrom){
+        this.questStartingFrom = questStartingFrom;
+        super.setQuest(questStartingFrom);
+    }
 }

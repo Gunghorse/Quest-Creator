@@ -6,7 +6,9 @@ import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.typeconversion.Convert;
 import org.springframework.data.geo.Point;
+import org.springframework.data.neo4j.conversion.PointConverter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +24,7 @@ public class QuestPoint {
     protected QuestPointStatus pointStatus;
     protected String title;
     protected String description;
-    protected Point location;
+    @Convert(PointConverter.class) private Point location;
 
     @JsonIgnoreProperties({"points","players","startPoint", "creator"})
     @Relationship(type = "BELONGS_TO")
@@ -46,28 +48,33 @@ public class QuestPoint {
         this.location = location;
     }
 
+    @JsonIgnoreProperties
     public Quest getQuest() {
         return quest;
     }
 
     public void setQuest(Quest quest) {
         this.quest = quest;
+        quest.setPoint(this);
     }
 
+    @JsonIgnoreProperties
     public List<QuestPoint> getChildren() {
         return children;
     }
 
-    public void setChildren(List<QuestPoint> children) {
-        this.children = children;
+    public void addChild(QuestPoint child) {
+        this.children.add(child);
     }
 
+    @JsonIgnoreProperties
     public List<QuestPoint> getParents() {
         return parents;
     }
 
-    public void setParents(List<QuestPoint> parents) {
-        this.parents = parents;
+    public void addParent(QuestPoint parent) {
+        this.parents.add(parent);
+        parent.addChild(this);
     }
 
     public Long getId() {

@@ -13,6 +13,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,6 +55,11 @@ public class Quest {
         creator.addCreature(this);
     }
 
+    public void setStartPoint(QuestStartPoint startPoint){
+        this.startPoint = startPoint;
+        startPoint.setQuestStartingFrom(this);
+    }
+
     public void addPlayer(User player){
         players.add(player);
     }
@@ -63,8 +69,8 @@ public class Quest {
         return points;
     }
 
-    public void setPoints(List<QuestPoint> points) {
-        this.points = points;
+    public void setPoint(QuestPoint points) {
+        this.points.add(points);
     }
 
     public void addPoint(QuestPoint point){
