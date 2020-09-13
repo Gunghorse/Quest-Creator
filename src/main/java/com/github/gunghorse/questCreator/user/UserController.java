@@ -48,7 +48,7 @@ public class UserController {
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public boolean register(@RequestBody User user){
-        if(userRepository.findByLogin(user.getLogin()) != null){
+        if(userRepository.findByLogin(user.getLogin()) == null){
             userRepository.save(user);
             return true;
         }

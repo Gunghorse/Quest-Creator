@@ -22,13 +22,18 @@ public class FillDB implements CommandLineRunner {
     @Autowired
     private QuestRepository questRepository;
     @Autowired
+    private QuestPointRepository questPointRepository;
+    @Autowired
+    private QuestStartPointRepository questStartPointRepository;
+
+    @Autowired
     private SessionRepository sessionRepository;
     @Autowired
     private CreatorRepository creatorRepository;
     @Autowired
-    private QuestPointRepository questPointRepository;
+    private ChildPointRelRepository childPointRelRepository;
     @Autowired
-    private QuestStartPointRepository questStartPointRepository;
+    private PointQuestRelRepository pointQuestRelRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -36,10 +41,13 @@ public class FillDB implements CommandLineRunner {
         // remove this lines to make your database longer than one session
         userRepository.deleteAll();
         questRepository.deleteAll();
-        sessionRepository.deleteAll();
-        creatorRepository.deleteAll();
         questPointRepository.deleteAll();
         questStartPointRepository.deleteAll();
+
+        sessionRepository.deleteAll();
+        creatorRepository.deleteAll();
+        childPointRelRepository.deleteAll();
+        pointQuestRelRepository.deleteAll();
 
         User dimonium = new User("Dimonium-239", "1234");
         User darkStalker = new User("DarkstalkeR", "1234");
