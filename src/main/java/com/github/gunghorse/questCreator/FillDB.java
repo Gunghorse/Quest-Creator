@@ -1,8 +1,6 @@
 package com.github.gunghorse.questCreator;
 
 import com.github.gunghorse.questCreator.quests.points.*;
-import com.github.gunghorse.questCreator.sessions.CreatorRepository;
-import com.github.gunghorse.questCreator.sessions.SessionRepository;
 import com.github.gunghorse.questCreator.user.*;
 import com.github.gunghorse.questCreator.quests.*;
 
@@ -26,6 +24,7 @@ public class FillDB implements CommandLineRunner {
     @Autowired
     private QuestStartPointRepository questStartPointRepository;
 
+    /*
     @Autowired
     private SessionRepository sessionRepository;
     @Autowired
@@ -34,6 +33,7 @@ public class FillDB implements CommandLineRunner {
     private ChildPointRelRepository childPointRelRepository;
     @Autowired
     private PointQuestRelRepository pointQuestRelRepository;
+    */
 
     @Override
     public void run(String... args) throws Exception {
@@ -44,10 +44,12 @@ public class FillDB implements CommandLineRunner {
         questPointRepository.deleteAll();
         questStartPointRepository.deleteAll();
 
+        /*
         sessionRepository.deleteAll();
         creatorRepository.deleteAll();
         childPointRelRepository.deleteAll();
         pointQuestRelRepository.deleteAll();
+         */
 
         User dimonium = new User("Dimonium-239", "1234");
         User darkStalker = new User("DarkstalkeR", "1234");

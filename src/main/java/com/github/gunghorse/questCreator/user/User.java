@@ -3,11 +3,10 @@ package com.github.gunghorse.questCreator.user;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.gunghorse.questCreator.Keys;
 import com.github.gunghorse.questCreator.quests.Quest;
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.driver.internal.shaded.reactor.util.annotation.NonNull;
+import org.neo4j.ogm.annotation.*;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +19,20 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
+
+    @NonNull
+    @NotEmpty
+    @Index(unique = true)
     private String login;
+
+    @NonNull
+    @NotEmpty
     private String password;
+
+    @NonNull
+    @NotEmpty
+    @Index(unique = true)
+    private String email;
 
     @JsonIgnoreProperties({"user","players","creator"})
     @Relationship(type = Keys.PLAYING)
@@ -63,5 +74,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
