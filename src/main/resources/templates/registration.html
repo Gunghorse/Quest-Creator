@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+            $.fn.serializeFormJSON = function () {
+                var o = {};
+                var a = this.serializeArray();
+                $.each(a, function () {
+                    if (o[this.name]) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+                return o;
+            };
+        })(jQuery);
+
+        function clicker () {
+            var data = $("#registration").serializeFormJSON();
+            console.log(data);
+            $.ajax({
+                type: "POST",
+                url: "/api/v1/user/registration/",
+                dataType: "json",
+                contentType:"application/json",
+                data: JSON.stringify(data)
+            });
+        }
+
+       // url: "/api/v1/user/registration/", // url where to submit the request
+
+    </script>
+</head>
+<body>
+<h1>Form</h1>
+<form id="registration">
+    <p>Username: <input name="username" value="username" /></p>
+    <p>E-mail: <input name="email" value="email" /></p>
+    <p>Password: <input name="password" value="password" /></p>
+</form>
+<button type="button" onclick="clicker()" >Click</button>
+
+</body>
+</html>

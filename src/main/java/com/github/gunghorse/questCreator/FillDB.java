@@ -51,16 +51,19 @@ public class FillDB implements CommandLineRunner {
         pointQuestRelRepository.deleteAll();
          */
 
-        User dimonium = new User("Dimonium-239", "1234");
-        User darkStalker = new User("DarkstalkeR", "1234");
+        UserDTO dimonium = new UserDTO();
+        dimonium.setEmail("dymitr.kuzmin@gmail.com");
+        dimonium.setPassword("1234");
+        dimonium.setUsername("Dimonium-239");
+        //User darkStalker = new User();
 
         Quest kingsWay = new Quest("Droga królewska",
                 "Piękne zabytki po drodze od Barbakana do Wawela");
 
-        kingsWay.setCreator(dimonium);
-        darkStalker.startQuestSession(kingsWay);
+        kingsWay.setCreator(new UserServices(userRepository).registerNewUserAccount(dimonium));
+        //darkStalker.startQuestSession(kingsWay);
 
-        userRepository.saveAll(Arrays.asList(dimonium, darkStalker));
+        //userRepository.saveAll(Arrays.asList(dimonium, darkStalker));
 
         QuestStartPoint barbakan = new QuestStartPoint(QuestPointStatus.UNVISITED_VISIBLE,
                 "Barbakan",

@@ -23,7 +23,7 @@ public class User {
     @NonNull
     @NotEmpty
     @Index(unique = true)
-    private String login;
+    private String username;
 
     @NonNull
     @NotEmpty
@@ -42,11 +42,6 @@ public class User {
     @Relationship(type = Keys.CREATED_BY, direction = INCOMING)
     private List<Quest> creatures = new ArrayList<>();
 
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
-
     public Long getId() {
         return id;
     }
@@ -60,12 +55,12 @@ public class User {
         quest.addPlayer(this);
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
