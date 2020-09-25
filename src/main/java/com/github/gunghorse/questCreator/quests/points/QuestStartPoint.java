@@ -13,6 +13,15 @@ public class QuestStartPoint extends QuestPoint {
     @Relationship(type = "STARTING_FROM", direction = INCOMING)
     private Quest questStartingFrom;
 
+    public QuestStartPoint(){
+        super();
+    }
+
+    public QuestStartPoint(String title, String description, Point location) {
+        super(title, description, location);
+        new Point(11, 12);
+    }
+
     public QuestStartPoint(QuestPointStatus pointStatus, String title, String description, Point location) {
         super(pointStatus, title, description, location);
     }

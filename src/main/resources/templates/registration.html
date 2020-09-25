@@ -31,7 +31,8 @@
                 url: "/api/v1/user/registration/",
                 dataType: "json",
                 contentType:"application/json",
-                data: JSON.stringify(data)
+                data: JSON.stringify(data),
+                success: alert("User "+document.getElementById("username").value+" successfully registered")
             });
         }
 
@@ -40,11 +41,12 @@
     </script>
 </head>
 <body>
+<a href="/login">Home</a>
 <h1>Form</h1>
 <form id="registration">
-    <p>Username: <input name="username" value="username" /></p>
-    <p>E-mail: <input name="email" value="email" /></p>
-    <p>Password: <input name="password" value="password" /></p>
+    <p>Username: <input id="username" name="username" value="username" /></p>
+    <p>E-mail: <input type="email" name="email" value="email" /></p>
+    <p>Password: <input type="password" name="password" value="password" /></p>
 </form>
 <button type="button" onclick="clicker()" >Click</button>
 

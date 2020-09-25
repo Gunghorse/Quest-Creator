@@ -38,6 +38,16 @@ public class QuestPoint {
     @Relationship(type = "LEAD_TO", direction = INCOMING)
     private List<QuestPoint> parents = new LinkedList<>();
 
+    public QuestPoint(){}
+
+    public QuestPoint(String title,
+                      String description,
+                      Point location) {
+        this.title = title;
+        this.description = description;
+        this.location = location;
+    }
+
     public QuestPoint(QuestPointStatus pointStatus,
                       String title,
                       String description,

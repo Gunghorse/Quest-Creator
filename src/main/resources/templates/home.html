@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <head>
+    <script>
+        $.getJSON('/api/v1/user/info', function(data) {
+
+            var text = `username: ${data.username}<br>
+                        email: ${data.email}`
+
+
+            $(".mypanel").html(text);
+        });
+    </script>
     <title>Hello World!</title>
 </head>
 <body>
+<a href="/quest">Quests</a>
 <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<form th:action="@{api/v1/user/info}" method="get">
-    <input type="submit" value="Get info"/>
-</form>
+<div class="mypanel"></div>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>

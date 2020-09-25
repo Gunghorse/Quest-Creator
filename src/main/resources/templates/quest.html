@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+            $.fn.serializeFormJSON = function () {
+                var o = {};
+                var a = this.serializeArray();
+                $.each(a, function () {
+                    if (o[this.name]) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+                return o;
+            };
+        })(jQuery);
+        function getDataFromAPI() {
+            fetch("/api/v1/quest")
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    appendData(data);
+                })
+                .catch(function (err) {
+                    console.log('error: ' + err);
+                });
+
+            function appendData(data) {
+                var mainContainer = document.getElementById("myData");
+                mainContainer.innerHTML ="";
+
+                for (var i = 0; i < data.length; i++) {
+                    var div = document.createElement("div");
+                    div.innerHTML = 'ID: '+data[i].id + '</br>Title: ' + data[i].title + "</br>Description:" + data[i].description;
+                    for(var j=0; j < data[i].points.length; j++){
+                        div.innerHTML += "Points: " + data[i].points[j]
+                    }
+                    mainContainer.appendChild(div);
+                }
+            }
+        }
+
+        function clicker (id, url) {
+            var data = $(id).serializeFormJSON();
+            console.log(data);
+            $.ajax({
+                type: "POST",
+                url: url,//"/api/v1/quest/create/",
+                dataType: "json",
+                contentType:"application/json",
+                data: JSON.stringify(data),
+                success: alert("Quest "+ document.getElementById("title").value + " is successfully edited")
+            });
+        }
+
+    </script>
+</head>
+<body>
+<a href="/home">Home</a>
+<h3 th:inline="text">You logined as [[${#httpServletRequest.remoteUser}]]!</h3>
+<h1>Create quest</h1>
+<form id="quest">
+    <p>Title: <input id="titleQuest" name="title" value="" /></p>
+    <p>Description: <input name="description" value="" /></p>
+</form>
+<button type="button" onclick="clicker('quest', '/api/v1/quest/create')" >Save quest</button>
+<button type="button" onclick="getDataFromAPI()" >Get quests</button>
+<h1>Create quest point</h1>
+<form id="questPoint">
+    <p>Quest ID: <input name="ID" value="" /></p>
+    <p>Title: <input id="titlePoint" name="title" value="" /></p>
+    <p>Description: <input name="description" value="" /></p>
+    <p>Latitude: <input id="latitude" name="latitude" value="" /></p>
+    <p>Longitude: <input id="longitude" name="longitude" value="" /></p>
+</form>
+<button type="button" onclick="clicker('questPoint', '/api/v1/quest/point/create')" >Save quest</button>
+
+<div id="myData"></div>
+</body>
+</html>

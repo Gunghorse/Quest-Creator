@@ -24,6 +24,8 @@ public class FillDB implements CommandLineRunner {
     @Autowired
     private QuestStartPointRepository questStartPointRepository;
 
+    private UserServices userServices;
+
     /*
     @Autowired
     private SessionRepository sessionRepository;
@@ -44,6 +46,8 @@ public class FillDB implements CommandLineRunner {
         questPointRepository.deleteAll();
         questStartPointRepository.deleteAll();
 
+        userServices = new UserServices(userRepository);
+
         /*
         sessionRepository.deleteAll();
         creatorRepository.deleteAll();
@@ -55,15 +59,21 @@ public class FillDB implements CommandLineRunner {
         dimonium.setEmail("dymitr.kuzmin@gmail.com");
         dimonium.setPassword("1234");
         dimonium.setUsername("Dimonium-239");
-        //User darkStalker = new User();
+
+        UserDTO darkStalker = new UserDTO();
+        darkStalker.setEmail("dakr@stalker.com");
+        darkStalker.setPassword("1234");
+        darkStalker.setUsername("DarkStalker");
 
         Quest kingsWay = new Quest("Droga królewska",
                 "Piękne zabytki po drodze od Barbakana do Wawela");
 
-        kingsWay.setCreator(new UserServices(userRepository).registerNewUserAccount(dimonium));
-        //darkStalker.startQuestSession(kingsWay);
+        User dimoniumUser = userServices.registerNewUserAccount(dimonium);
+        User darkStalkerUser = userServices.registerNewUserAccount(darkStalker);
+        kingsWay.setCreator(dimoniumUser);
+        darkStalkerUser.startQuestSession(kingsWay);
 
-        //userRepository.saveAll(Arrays.asList(dimonium, darkStalker));
+
 
         QuestStartPoint barbakan = new QuestStartPoint(QuestPointStatus.UNVISITED_VISIBLE,
                 "Barbakan",

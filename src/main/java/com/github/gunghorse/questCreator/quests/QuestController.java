@@ -1,8 +1,12 @@
 package com.github.gunghorse.questCreator.quests;
 
+import com.github.gunghorse.questCreator.quests.points.QuestPoint;
+import com.github.gunghorse.questCreator.quests.points.QuestPointDTO;
 import com.github.gunghorse.questCreator.quests.points.QuestPointRepository;
+import com.github.gunghorse.questCreator.quests.points.QuestStartPoint;
 import com.github.gunghorse.questCreator.user.User;
 import com.github.gunghorse.questCreator.user.UserRepository;
+import org.springframework.data.geo.Point;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +37,7 @@ public class QuestController {
      * @return List of all quests
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Quest> getAllQuests(Principal principal) {
+    public @ResponseBody List<Quest> getAllQuests(Principal principal) {
         return (List<Quest>) questRepository.findAll();
     }
 
@@ -43,5 +47,29 @@ public class QuestController {
         return questRepository.findByCreator(creator);
     }
 
+    @RequestMapping(value="/create", method = RequestMethod.POST)
+    public void createQuest(@RequestBody QuestDTO questDTO, Principal principal){
+        User creator = userRepository.findByUsername(principal.getName());
+        Quest newQuest = new Quest(questDTO.getTitle(), questDTO.getDescription());
+        newQuest.setCreator(creator);
+        questRepository.save(newQuest);
+    }
 
+    @RequestMapping(value = "/point/create", method = RequestMethod.POST)
+    public void createQuestPoint(@RequestBody QuestPointDTO questPointDTO){
+        Quest quest = questRepository.findById(questPointDTO.getQuestID()).get();
+        QuestPoint questPoint;
+        if(quest.getPoints().isEmpty()){
+            questPoint = new QuestStartPoint(questPointDTO.getTitle(),
+                    questPointDTO.getDescription(),
+                    new Point(questPointDTO.getLongitude(), questPointDTO.getLatitude()));
+        }else{
+            questPoint = new QuestPoint(questPointDTO.getTitle(),
+                    questPointDTO.getDescription(),
+                    new Point(questPointDTO.getLongitude(), questPointDTO.getLatitude()));
+        }
+        quest.setPoint(questPoint);
+        questPointRepository.save(questPoint);
+        questRepository.save(quest);
+    }
 }
