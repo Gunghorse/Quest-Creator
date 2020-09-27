@@ -28,11 +28,11 @@ public class Quest {
     private String title;
     private String description;
 
-    @JsonIgnoreProperties({"quest","playing","creatures"})
+    @JsonIgnoreProperties({"quest","playing","createdQuests"})
     @Relationship(type = "PLAYING", direction = INCOMING)
     private List<User> players = new LinkedList<>();
 
-    @JsonIgnoreProperties({"quest","playing","creatures"})
+    @JsonIgnoreProperties({"quest","playing","createdQuests"})
     @Relationship(type = Keys.CREATED_BY)
     private User creator;
 
