@@ -24,7 +24,7 @@ public class FillDB implements CommandLineRunner {
     @Autowired
     private QuestStartPointRepository questStartPointRepository;
 
-    private UserServices userServices;
+    private UserService userService;
 
     /*
     @Autowired
@@ -46,7 +46,7 @@ public class FillDB implements CommandLineRunner {
         questPointRepository.deleteAll();
         questStartPointRepository.deleteAll();
 
-        userServices = new UserServices(userRepository);
+        userService = new UserService(userRepository);
 
         /*
         sessionRepository.deleteAll();
@@ -68,8 +68,8 @@ public class FillDB implements CommandLineRunner {
         Quest kingsWay = new Quest("Droga królewska",
                 "Piękne zabytki po drodze od Barbakana do Wawela");
 
-        User dimoniumUser = userServices.registerNewUserAccount(dimonium);
-        User darkStalkerUser = userServices.registerNewUserAccount(darkStalker);
+        User dimoniumUser = userService.registerNewUserAccount(dimonium);
+        User darkStalkerUser = userService.registerNewUserAccount(darkStalker);
         kingsWay.setCreator(dimoniumUser);
         darkStalkerUser.startQuestSession(kingsWay);
 

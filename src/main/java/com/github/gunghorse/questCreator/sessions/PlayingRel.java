@@ -7,7 +7,7 @@ import com.github.gunghorse.questCreator.user.User;
 import org.neo4j.ogm.annotation.*;
 
 @RelationshipEntity(type = Keys.PLAYING)
-public class SessionRel {
+public class PlayingRel {
 
     @Id
     @GeneratedValue

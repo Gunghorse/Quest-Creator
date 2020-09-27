@@ -3,7 +3,6 @@ package com.github.gunghorse.questCreator.user;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.gunghorse.questCreator.Keys;
 import com.github.gunghorse.questCreator.quests.Quest;
-import org.neo4j.driver.internal.shaded.reactor.util.annotation.NonNull;
 import org.neo4j.ogm.annotation.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -20,16 +19,13 @@ public class User {
     @GeneratedValue
     private Long id;
 
-    @NonNull
     @NotEmpty
     @Index(unique = true)
     private String username;
 
-    @NonNull
     @NotEmpty
     private String password;
 
-    @NonNull
     @NotEmpty
     @Index(unique = true)
     private String email;
@@ -40,14 +36,14 @@ public class User {
 
     @JsonIgnoreProperties({"user","players","creator"})
     @Relationship(type = Keys.CREATED_BY, direction = INCOMING)
-    private List<Quest> creatures = new ArrayList<>();
+    private List<Quest> createdQuests = new ArrayList<>();
 
     public Long getId() {
         return id;
     }
 
-    public void addCreature(Quest quest){
-        creatures.add(quest);
+    public void addCreatedQuest(Quest quest){
+        createdQuests.add(quest);
     }
 
     public void startQuestSession(Quest quest){
@@ -77,5 +73,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Quest> getCreatedQuests() {
+        return createdQuests;
+    }
+
+    public void setCreatedQuests(List<Quest> createdQuests) {
+        this.createdQuests = createdQuests;
     }
 }

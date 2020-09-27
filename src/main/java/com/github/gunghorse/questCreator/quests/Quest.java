@@ -1,6 +1,5 @@
 package com.github.gunghorse.questCreator.quests;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import com.github.gunghorse.questCreator.quests.points.QuestPoint;
@@ -14,7 +13,6 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class Quest {
     @Relationship(type = "PLAYING", direction = INCOMING)
     private List<User> players = new LinkedList<>();
 
-    //@JsonIgnoreProperties({"quest","playing","creatures"})
+    @JsonIgnoreProperties({"quest","playing","creatures"})
     @Relationship(type = Keys.CREATED_BY)
     private User creator;
 
@@ -55,7 +53,7 @@ public class Quest {
 
     public void setCreator(User creator){
         this.creator = creator;
-        creator.addCreature(this);
+        creator.addCreatedQuest(this);
     }
 
     public User getCreator() {

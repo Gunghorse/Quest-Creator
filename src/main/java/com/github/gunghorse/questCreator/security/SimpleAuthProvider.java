@@ -28,6 +28,7 @@ public class SimpleAuthProvider implements AuthenticationProvider {
         String username = auth.getName();
         String password = auth.getCredentials()
                 .toString();
+        // TODO validations
 
         User user = userRepository.findByUsername(username);
         if (passwordEncoder.matches(password, user.getPassword())) {

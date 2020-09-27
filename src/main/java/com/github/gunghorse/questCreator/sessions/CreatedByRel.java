@@ -7,7 +7,7 @@ import com.github.gunghorse.questCreator.user.User;
 import org.neo4j.ogm.annotation.*;
 
 @RelationshipEntity(type = Keys.CREATED_BY)
-public class CreatedRel {
+public class CreatedByRel {
 
     @Id
     @GeneratedValue

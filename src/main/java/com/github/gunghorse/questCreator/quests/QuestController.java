@@ -38,7 +38,8 @@ public class QuestController {
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public @ResponseBody List<Quest> getAllQuests(Principal principal) {
-        return (List<Quest>) questRepository.findAll();
+        List<Quest> quests = (List<Quest>) questRepository.findAll();
+        return quests;
     }
 
     @RequestMapping(value="/my", method = RequestMethod.GET)
