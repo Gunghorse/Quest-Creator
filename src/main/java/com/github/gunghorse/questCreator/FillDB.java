@@ -8,9 +8,11 @@ import com.github.gunghorse.questCreator.quests.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.geo.Point;
+import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class FillDB implements CommandLineRunner {
@@ -260,9 +262,11 @@ public class FillDB implements CommandLineRunner {
         wawel.addParent(wsd);
 
         questRepository.save(kingsWay);
+        Quest quest = ((List<Quest>)questRepository.findAll()).get(0);
         questStartPointRepository.save(barbakan);
         questPointRepository.saveAll(Arrays.asList(bramaFloreanska, kosciolMariacki, sukiennice,
                 stAnne, uj, stFranciszek, wsd, stWojciech, poitraIPawla, stAndrzej, stIdzi,
                 wawel));
+
     }
 }

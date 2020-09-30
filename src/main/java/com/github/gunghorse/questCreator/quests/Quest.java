@@ -16,7 +16,7 @@ import org.neo4j.ogm.annotation.Relationship;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.neo4j.ogm.annotation.Relationship.INCOMING;
+import static org.neo4j.ogm.annotation.Relationship.*;
 
 
 @NodeEntity
@@ -29,19 +29,19 @@ public class Quest {
     private String description;
 
     @JsonIgnoreProperties({"quest","playing","createdQuests"})
-    @Relationship(type = "PLAYING", direction = INCOMING)
+    @Relationship(type = "PLAYING", direction = OUTGOING)
     private List<User> players = new LinkedList<>();
 
     @JsonIgnoreProperties({"quest","playing","createdQuests"})
-    @Relationship(type = Keys.CREATED_BY)
+    @Relationship(type = Keys.CREATED_BY, direction = INCOMING)
     private User creator;
 
-    //@JsonIgnoreProperties({})
-    @Relationship(type = "BELONGS_TO", direction = INCOMING)
+    @JsonIgnoreProperties({"quest","children","parents"})
+    @Relationship(type = "BELONGS_TO", direction = OUTGOING)
     private List<QuestPoint> points = new LinkedList<>();
 
     @JsonIgnoreProperties({"quest","children","parents"})
-    @Relationship(type = "STARTING_FROM")
+    @Relationship(type = "STARTING_FROM", direction = INCOMING)
     private QuestStartPoint startPoint;
 
     public Quest(){}
@@ -67,6 +67,10 @@ public class Quest {
     public void setStartPoint(QuestStartPoint startPoint){
         this.startPoint = startPoint;
         startPoint.setQuestStartingFrom(this);
+    }
+
+    public List<User> getPlayers() {
+        return players;
     }
 
     public void addPlayer(User player){

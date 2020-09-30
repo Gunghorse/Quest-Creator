@@ -2,6 +2,7 @@ package com.github.gunghorse.questCreator.user;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.github.gunghorse.questCreator.exceptions.EmailOrUsernameExistException;
 
 public class UserService {
 
@@ -11,23 +12,29 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User registerNewUserAccount(UserDTO accountDto) {
-        /*if (emailExist(accountDto.getEmail())) {
-            throw new EmailExistsException(
-                    "There is an account with that email address:" + accountDto.getEmail());
-        }*/
+    public User registerNewUserAccount(UserDTO userDto) {
+        if (emailExist(userDto.getEmail()) || usernameExist(userDto.getUsername())) {
+            throw new EmailOrUsernameExistException(
+                    "There is an account with that email address: "
+                            + userDto.getEmail() + " or username: "
+                    + userDto.getUsername());
+        }
         User user = new User();
-        user.setUsername(accountDto.getUsername());
+        user.setUsername(userDto.getUsername());
 
-        String pass = encoder().encode(accountDto.getPassword());
+        String pass = encoder().encode(userDto.getPassword());
         user.setPassword(pass);
 
-        user.setEmail(accountDto.getEmail());
+        user.setEmail(userDto.getEmail());
         return userRepository.save(user);
     }
 
     private boolean emailExist(String email) {
         return userRepository.findByEmailIgnoreCase(email) != null;
+    }
+
+    private boolean usernameExist(String username) {
+        return userRepository.findByUsername(username) != null;
     }
 
     private PasswordEncoder encoder() {

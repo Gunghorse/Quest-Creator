@@ -58,7 +58,7 @@
                 dataType: "json",
                 contentType:"application/json",
                 data: JSON.stringify(data),
-                success: alert("Quest "+ document.getElementById("title").value + " is successfully edited")
+                success: alert("Quest " + " is successfully edited")
             });
         }
 
@@ -72,17 +72,17 @@
     <p>Title: <input id="titleQuest" name="title" value="" /></p>
     <p>Description: <input name="description" value="" /></p>
 </form>
-<button type="button" onclick="clicker('quest', '/api/v1/quest/create')" >Save quest</button>
+<button type="button" onclick="clicker('#quest', '/api/v1/quest/create')" >Save quest</button>
 <button type="button" onclick="getDataFromAPI()" >Get quests</button>
 <h1>Create quest point</h1>
 <form id="questPoint">
-    <p>Quest ID: <input name="ID" value="" /></p>
+    <p>Quest ID: <input name="questID" value="" /></p>
     <p>Title: <input id="titlePoint" name="title" value="" /></p>
     <p>Description: <input name="description" value="" /></p>
     <p>Latitude: <input id="latitude" name="latitude" value="" /></p>
     <p>Longitude: <input id="longitude" name="longitude" value="" /></p>
 </form>
-<button type="button" onclick="clicker('questPoint', '/api/v1/quest/point/create')" >Save quest</button>
+<button type="button" onclick="clicker('#questPoint', '/api/v1/quest/point/create')" >Save quest</button>
 
 <div id="myData"></div>
 </body>

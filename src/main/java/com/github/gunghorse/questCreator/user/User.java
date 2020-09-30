@@ -1,15 +1,16 @@
 package com.github.gunghorse.questCreator.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.gunghorse.questCreator.Keys;
 import com.github.gunghorse.questCreator.quests.Quest;
 import org.neo4j.ogm.annotation.*;
 
-import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
+import static org.neo4j.ogm.annotation.Relationship.OUTGOING;
 
 
 @NodeEntity
@@ -19,14 +20,12 @@ public class User {
     @GeneratedValue
     private Long id;
 
-    @NotEmpty
     @Index(unique = true)
     private String username;
 
-    @NotEmpty
+    @JsonIgnore
     private String password;
 
-    @NotEmpty
     @Index(unique = true)
     private String email;
 
@@ -35,7 +34,7 @@ public class User {
     private List<Quest> playing = new ArrayList<>();
 
     @JsonIgnoreProperties({"user","players","creator"})
-    @Relationship(type = Keys.CREATED_BY, direction = INCOMING)
+    @Relationship(type = Keys.CREATED_BY, direction = OUTGOING)
     private List<Quest> createdQuests = new ArrayList<>();
 
     public Long getId() {

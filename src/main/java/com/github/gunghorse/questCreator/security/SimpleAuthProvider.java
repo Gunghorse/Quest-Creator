@@ -11,6 +11,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.util.Collections;
 
 @Component
@@ -25,19 +27,29 @@ public class SimpleAuthProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication auth)
             throws AuthenticationException {
-        String username = auth.getName();
-        String password = auth.getCredentials()
-                .toString();
-        // TODO validations
+        if (!auth.getName().isEmpty() && !auth.getCredentials().toString().isEmpty()) {
+            User user;
+            String password = auth.getCredentials().toString();
+            if (isValidEmailAddress(auth.getName()))
+                user = userRepository.findByEmailIgnoreCase(auth.getName());
+            else user = userRepository.findByUsername(auth.getName());
 
-        User user = userRepository.findByUsername(username);
-        if (passwordEncoder.matches(password, user.getPassword())) {
-            return new UsernamePasswordAuthenticationToken
-                    (username, password, Collections.emptyList());
-        } else {
-            throw new
-                    BadCredentialsException("External system authentication failed");
+            if (user != null && passwordEncoder.matches(password, user.getPassword()))
+                return new UsernamePasswordAuthenticationToken
+                        (user.getUsername(), password, Collections.emptyList());
         }
+        throw new BadCredentialsException("External system authentication failed");
+    }
+
+    public static boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
     }
 
     @Override
