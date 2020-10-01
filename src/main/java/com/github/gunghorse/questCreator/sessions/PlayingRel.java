@@ -21,4 +21,5 @@ public class PlayingRel {
     @JsonIgnoreProperties({"quest","playing","creatures"})
     private Quest quest;
 
+
 }

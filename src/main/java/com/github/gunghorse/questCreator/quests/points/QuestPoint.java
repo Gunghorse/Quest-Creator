@@ -1,5 +1,6 @@
 package com.github.gunghorse.questCreator.quests.points;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.gunghorse.questCreator.quests.Quest;
 import org.neo4j.ogm.annotation.GeneratedValue;
@@ -13,7 +14,7 @@ import org.springframework.data.neo4j.conversion.PointConverter;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.neo4j.ogm.annotation.Relationship.INCOMING;
+import static org.neo4j.ogm.annotation.Relationship.*;
 
 
 @NodeEntity
@@ -26,17 +27,18 @@ public class QuestPoint {
     protected String description;
     @Convert(PointConverter.class) private Point location;
 
+
     @JsonIgnoreProperties({"points","players","startPoint", "creator"})
-    @Relationship(type = "BELONGS_TO")
+    @Relationship(type = "BELONGS_TO", direction = INCOMING)
     private Quest quest;
 
-    @JsonIgnoreProperties({"quest","children","parents"})
-    @Relationship(type = "LEAD_TO")
-    private List<QuestPoint> children = new LinkedList<>();
+    @JsonIgnoreProperties({"quest","parents"})
+    @Relationship(type = "LEAD_TO", direction = OUTGOING)
+    protected List<QuestPoint> children = new LinkedList<>();
 
-    @JsonIgnoreProperties({"quest","children","parents"})
+    @JsonIgnoreProperties({"quest","children"})
     @Relationship(type = "LEAD_TO", direction = INCOMING)
-    private List<QuestPoint> parents = new LinkedList<>();
+    protected List<QuestPoint> parents = new LinkedList<>();
 
     public QuestPoint(){}
 

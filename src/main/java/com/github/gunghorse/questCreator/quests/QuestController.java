@@ -7,14 +7,11 @@ import com.github.gunghorse.questCreator.quests.points.QuestStartPoint;
 import com.github.gunghorse.questCreator.user.User;
 import com.github.gunghorse.questCreator.user.UserRepository;
 import org.springframework.data.geo.Point;
-import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Controller responsible for communication with quests;
@@ -26,7 +23,7 @@ public class QuestController {
     private final QuestRepository questRepository;
     private final QuestPointRepository questPointRepository;
     private final UserRepository userRepository;
-    private QuestServices questServices;
+    private final QuestServices questServices;
 
     public QuestController(QuestRepository questRepository,
                            QuestPointRepository questPointRepository,
@@ -44,9 +41,31 @@ public class QuestController {
      * @return List of all quests
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public @ResponseBody List<Quest> getAllQuests(Principal principal) {
+    public @ResponseBody List<Quest> getAllQuests() {
+        return (List<Quest>) questRepository.findAll();
+    }
+
+    /**
+     * URL looks like
+     * GET /quest/points
+     *
+     * @return all quest points
+     */
+    @RequestMapping(value = "/points", method = RequestMethod.GET)
+    public @ResponseBody List<QuestPoint> getAllQuestPoints() {
+        return (List<QuestPoint>) questPointRepository.findAll();
+    }
+
+    /**
+     * URL looks like
+     * GET /quest/startPoint
+     *
+     * @return all start points
+     */
+    @RequestMapping(value = "/startPoints", method = RequestMethod.GET)
+    public @ResponseBody List<QuestStartPoint> getAllStartQuestPoints() {
         List<Quest> quests = (List<Quest>) questRepository.findAll();
-        return quests;
+        return quests.stream().map(Quest::getStartPoint).collect(Collectors.toList());
     }
 
     /**

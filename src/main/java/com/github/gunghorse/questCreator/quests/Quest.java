@@ -1,5 +1,6 @@
 package com.github.gunghorse.questCreator.quests;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import com.github.gunghorse.questCreator.quests.points.QuestPoint;
@@ -36,11 +37,12 @@ public class Quest {
     @Relationship(type = Keys.CREATED_BY, direction = INCOMING)
     private User creator;
 
+    @JsonIgnore
     @JsonIgnoreProperties({"quest","children","parents"})
     @Relationship(type = "BELONGS_TO", direction = OUTGOING)
     private List<QuestPoint> points = new LinkedList<>();
 
-    @JsonIgnoreProperties({"quest","children","parents"})
+    @JsonIgnoreProperties({"quest"})
     @Relationship(type = "STARTING_FROM", direction = INCOMING)
     private QuestStartPoint startPoint;
 
