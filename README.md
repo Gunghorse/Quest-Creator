@@ -3,33 +3,22 @@
 ## API mockup for quest creator 
 API that alowe to manupulate quests in quest creator database.
 
-### Present endpoints:
-    Quest endpoints:
-    - GET     /quest/
-    - GET     /quest/get/{questID}
-    - POST    /quest/create
-    - POST    /quest/point/create
-    - DELETE  /quest/point/delete/{pointID}
-    - DELETE  /quest/delete/{questID}
-    - GET     /quest/get/points
-    - POST    /quest/add/point/{questID}
-    - PUT     /quest/update/{questID}?title=New Title&description=Wow its new too
-    - PUT     /quest/update/point/{pointID}?title=New Title&status=visible
-    - GET     /quest/session/{userID}
-    - POST    /quest/session/start/{questID}
-    - POST    /quest/session/end/{sessionID}
-    - GET     /quest/near/{pointID}
-    - GET     /quest/isOnPoint?coordinates=50.065514,19.941228
-    - GET     /quest/pointsInRadius?coordinates=50.065514,19.941228&radius=150
-    
-    User endpoints:
-    - GET     /user/
-    - POST    /user/login
-    - POST    /user/register
+## Quick start
+You need to run server, then you can call APIs commaands.
+In first call of `localhost:8080` this will call a simple `/login` HTML page.
+You can login or registrate new account if you have not.
+After logining you can go to simple HTML page `/quest` where you can create new quest and points to this quest.
+If you want use APIs commands you have to call it like this `localhost:8080/api/v1/*`
+
+## Present endpoints
+    Quest endpoints :
+    - GET api/v1/quest
+    - GET api/v1/quest/my
+    - GET api/v1/
     
 ## Built With
 * [Spring Boot](https://spring.io/projects/spring-boot) - "Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can "just run"."(c)
-* [MongoDB](https://www.mongodb.com/) - noSQL database
+* [Neo4J](https://neo4j.com/) - graph database
 
 ## Run
  You need to have installed mongoDB on your computer, then make maven update and download all dependecies (if you work with Intellij)
