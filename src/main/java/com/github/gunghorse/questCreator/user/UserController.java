@@ -1,5 +1,6 @@
 package com.github.gunghorse.questCreator.user;
 
+import com.github.gunghorse.questCreator.repositories.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
@@ -21,7 +22,7 @@ public class UserController {
      * URL looks like:
      *      GET /user/
      *
-     * @return Info about you;
+     * @return Info about current user
      */
     @RequestMapping(value="/info", method = RequestMethod.GET)
     public User getMyInfo(HttpServletRequest req){

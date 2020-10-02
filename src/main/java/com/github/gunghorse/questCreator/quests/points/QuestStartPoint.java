@@ -6,7 +6,6 @@ import com.github.gunghorse.questCreator.quests.Quest;
 import org.neo4j.ogm.annotation.Relationship;
 import org.springframework.data.geo.Point;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
@@ -26,7 +25,7 @@ public class QuestStartPoint extends QuestPoint {
 
     public QuestStartPoint(String title, String description, Point location) {
         super(title, description, location);
-        new Point(11, 12);
+        new Point(11, 12);  // wtf?
     }
 
     public QuestStartPoint(QuestPointStatus pointStatus, String title, String description, Point location) {

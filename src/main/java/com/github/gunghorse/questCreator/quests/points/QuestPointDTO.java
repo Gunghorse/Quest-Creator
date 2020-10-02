@@ -1,7 +1,5 @@
 package com.github.gunghorse.questCreator.quests.points;
 
-import org.springframework.data.geo.Point;
-
 public class QuestPointDTO {
     private Long questID;
     private String pointStatus;
