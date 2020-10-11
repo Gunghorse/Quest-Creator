@@ -50,6 +50,17 @@ public class User {
     public void startQuestSession(Quest quest){
         quest.addPlayer(this);
 
+    @Transient
+    private HashSet<Quest> completedQuestsId = new HashSet<>();
+    @Transient
+    private HashMap<Quest, HashSet<QuestPoint>> activeQuestsVisitedPoints = new HashMap<>();
+    @Transient
+    private HashMap<Quest, HashSet<QuestPoint>> activeQuestsVisiblePoints = new HashMap<>();
+
+
+    public boolean addActiveQuest(Quest quest){
+        if (quest == null) return false;
+
         HashSet<QuestPoint> points = new HashSet<>();
         points.add(quest.getStartPoint());
         activeQuestsVisiblePoints.put(quest, points);
