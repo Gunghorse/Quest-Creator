@@ -1,7 +1,8 @@
 package com.github.gunghorse.questCreator;
 
-import com.github.gunghorse.questCreator.quests.points.*;
-//import com.github.gunghorse.questCreator.quests.points.status.QuestPointStatus;
+
+import com.github.gunghorse.questCreator.quests.points.QuestPoint;
+import com.github.gunghorse.questCreator.quests.points.QuestStartPoint;
 import com.github.gunghorse.questCreator.repositories.QuestPointRepository;
 import com.github.gunghorse.questCreator.repositories.QuestRepository;
 import com.github.gunghorse.questCreator.repositories.QuestStartPointRepository;

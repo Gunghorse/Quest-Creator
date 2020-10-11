@@ -19,6 +19,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class Quest {
     private Long id;
     private String title;
     private String description;
+    private int size;
 
     @JsonIgnoreProperties({"quest","playing","createdQuests"})
     @Relationship(type = "PLAYING", direction = OUTGOING)
@@ -48,7 +50,7 @@ public class Quest {
     @JsonIgnore
     @JsonIgnoreProperties({"quest","children","parents"})
     @Relationship(type = "BELONGS_TO", direction = OUTGOING)
-    private final List<QuestPoint> points = new LinkedList<>();
+    private final HashSet<QuestPoint> points = new HashSet<>();
 
     @JsonIgnoreProperties({"quest"})
     @Relationship(type = "STARTING_FROM", direction = INCOMING)
@@ -72,8 +74,13 @@ public class Quest {
     public void addPlayer(User player){
         players.add(player);
     }
-    
+
     public void addPoint(QuestPoint point) {
         this.points.add(point);
+        size++;
+    }
+
+    public void updateSize(){
+        size = points.size();
     }
 }

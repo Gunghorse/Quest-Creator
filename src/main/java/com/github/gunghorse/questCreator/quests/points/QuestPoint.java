@@ -25,11 +25,9 @@ public class QuestPoint {
     @Id
     @GeneratedValue
     protected Long id;
-    //protected QuestPointStatus pointStatus;
     protected String title;
     protected String description;
     @Convert(PointConverter.class) private Point location;
-
 
     @JsonIgnoreProperties({"points","players","startPoint", "creator"})
     @Relationship(type = "BELONGS_TO", direction = INCOMING)
@@ -64,7 +62,6 @@ public class QuestPoint {
         this.quest = quest;
         quest.addPoint(this);
     }
-
 
     public void addChild(QuestPoint child) {
         this.children.add(child);
