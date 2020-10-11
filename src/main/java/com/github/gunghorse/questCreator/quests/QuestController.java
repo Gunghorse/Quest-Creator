@@ -92,7 +92,10 @@ public class QuestController {
     @RequestMapping(value="/create", method = RequestMethod.POST)
     public void createQuest(@RequestBody QuestDTO questDTO, Principal principal){
         User creator = userRepository.findByUsername(principal.getName());
-        Quest newQuest = new Quest(questDTO.getTitle(), questDTO.getDescription());
+        Quest newQuest = Quest.builder()
+                .title(questDTO.getTitle())
+                .description(questDTO.getDescription())
+                .build();
         newQuest.setCreator(creator);
         questRepository.save(newQuest);
     }
@@ -156,7 +159,7 @@ public class QuestController {
                     .location(new Point(questPointDTO.getLongitude(), questPointDTO.getLatitude()))
                     .build();;
         }
-        quest.setPoint(questPoint);
+        quest.addPoint(questPoint);
         questPointRepository.save(questPoint);
         questRepository.save(quest);
     }
