@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.gunghorse.questCreator.Keys;
 import com.github.gunghorse.questCreator.quests.Quest;
+import com.github.gunghorse.questCreator.quests.points.QuestPoint;
 import lombok.Getter;
 import lombok.Setter;
 
