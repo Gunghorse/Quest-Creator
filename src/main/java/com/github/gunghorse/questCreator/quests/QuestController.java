@@ -2,10 +2,11 @@ package com.github.gunghorse.questCreator.quests;
 
 import com.github.gunghorse.questCreator.quests.points.QuestPoint;
 import com.github.gunghorse.questCreator.quests.points.QuestPointDTO;
-import com.github.gunghorse.questCreator.quests.points.QuestPointRepository;
+import com.github.gunghorse.questCreator.repositories.QuestPointRepository;
 import com.github.gunghorse.questCreator.quests.points.QuestStartPoint;
+import com.github.gunghorse.questCreator.repositories.QuestRepository;
 import com.github.gunghorse.questCreator.user.User;
-import com.github.gunghorse.questCreator.user.UserRepository;
+import com.github.gunghorse.questCreator.repositories.UserRepository;
 import org.springframework.data.geo.Point;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Controller responsible for communication with quests;
+ * Controller responsible for communication with quests.
  */
 @RestController
 @RequestMapping("${v1API}/quest")
@@ -23,7 +24,7 @@ public class QuestController {
     private final QuestRepository questRepository;
     private final QuestPointRepository questPointRepository;
     private final UserRepository userRepository;
-    private final QuestServices questServices;
+    private final QuestService questService;
 
     public QuestController(QuestRepository questRepository,
                            QuestPointRepository questPointRepository,
@@ -31,7 +32,7 @@ public class QuestController {
         this.questRepository = questRepository;
         this.questPointRepository = questPointRepository;
         this.userRepository = userRepository;
-        this.questServices = new QuestServices(null, questPointRepository);
+        this.questService = new QuestService(null, questPointRepository);
     }
 
     /**
@@ -72,7 +73,7 @@ public class QuestController {
      * URL looks like:
      * GET /quest/my
      *
-     * @param principal - here we have username of login user
+     * @param principal - here we have username of user being logged in
      * @return list of quest created by login user
      */
     @RequestMapping(value="/my", method = RequestMethod.GET)
@@ -84,8 +85,9 @@ public class QuestController {
      * URL looks like:
      * POST /quest/create
      *
-     * @param questDTO data transfer object with necessaries data for creating quest
-     * @param principal - here we have username of login user. Need it for set creator of quest
+     * @param questDTO data transfer object with necessary data for creating quest
+     * @param principal - here we have username of user being logged in.
+     *                  Need it for setting quest's creator
      */
     @RequestMapping(value="/create", method = RequestMethod.POST)
     public void createQuest(@RequestBody QuestDTO questDTO, Principal principal){
@@ -99,7 +101,7 @@ public class QuestController {
      * URL looks like:
      * GET /quest/point/onPoint?lon=50.061667&lat=19.937347
      *
-     * Check if user is not further than 15 m from any point and if so return true;
+     * Check if user is not further than 15 m from any point from points from database.
      *
      * @param coordsAndRadius here we need to have 'lon' and 'lat'
      * @return boolean is user on point
@@ -108,7 +110,8 @@ public class QuestController {
     public boolean isOnPoint(@RequestParam Map<String, String> coordsAndRadius){
         double longitude = Double.parseDouble(coordsAndRadius.get("lon"));
         double latitude = Double.parseDouble(coordsAndRadius.get("lat"));
-        return !questServices.startPointsInRadiusAroundPlayer(new Point(longitude, latitude), 15.0).isEmpty();
+        return !questService.startPointsInRadiusAroundPlayer(
+                new Point(longitude, latitude), 15.0).isEmpty();
     }
 
     /**
@@ -117,7 +120,7 @@ public class QuestController {
      *
      * Seek all points in circle with radius 'radius' and centre in point 'lon' and 'lat'
      *
-     * @param coordsAndRadius here we need to have 'lon' and 'lat' and 'radius'
+     * @param coordsAndRadius here are 'lon' and 'lat' and 'radius'
      * @return list of points in given radius
      */
     @RequestMapping(value = "/point/inRadius", method = RequestMethod.GET)
@@ -125,7 +128,7 @@ public class QuestController {
         double longitude = Double.parseDouble(coordsAndRadius.get("lon"));
         double latitude = Double.parseDouble(coordsAndRadius.get("lat"));
         double radius = Double.parseDouble(coordsAndRadius.get("radius"));
-        return questServices.startPointsInRadiusAroundPlayer(new Point(longitude, latitude), radius);
+        return questService.startPointsInRadiusAroundPlayer(new Point(longitude, latitude), radius);
     }
 
     /**
@@ -134,7 +137,7 @@ public class QuestController {
      *
      * Create new quest point in given quest. Quest specified by its ID.
      *
-     * @param questPointDTO data transfer object with necessaries data for creating quest point
+     * @param questPointDTO data transfer object with necessary data for creating quest point
      */
     @RequestMapping(value = "/point/create", method = RequestMethod.POST)
     public void createQuestPoint(@RequestBody QuestPointDTO questPointDTO){

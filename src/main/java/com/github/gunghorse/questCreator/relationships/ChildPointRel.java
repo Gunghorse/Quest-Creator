@@ -1,6 +1,7 @@
-package com.github.gunghorse.questCreator.quests.points;
+package com.github.gunghorse.questCreator.relationships;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.github.gunghorse.questCreator.quests.points.QuestPoint;
 import org.neo4j.ogm.annotation.*;
 
 @RelationshipEntity(type = "LEAD_TO")

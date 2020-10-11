@@ -1,5 +1,6 @@
-package com.github.gunghorse.questCreator.quests;
+package com.github.gunghorse.questCreator.relationships;
 
+import com.github.gunghorse.questCreator.quests.Quest;
 import com.github.gunghorse.questCreator.quests.points.QuestStartPoint;
 import org.neo4j.ogm.annotation.*;
 

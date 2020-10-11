@@ -1,5 +1,6 @@
-package com.github.gunghorse.questCreator.user;
+package com.github.gunghorse.questCreator.repositories;
 
+import com.github.gunghorse.questCreator.user.User;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;
 

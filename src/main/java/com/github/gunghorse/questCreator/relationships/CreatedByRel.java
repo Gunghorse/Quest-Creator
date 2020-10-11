@@ -1,4 +1,4 @@
-package com.github.gunghorse.questCreator.sessions;
+package com.github.gunghorse.questCreator.relationships;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.gunghorse.questCreator.Keys;

@@ -1,8 +1,9 @@
 package com.github.gunghorse.questCreator.user;
 
+import com.github.gunghorse.questCreator.repositories.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import com.github.gunghorse.questCreator.exceptions.EmailOrUsernameExistException;
+import com.github.gunghorse.questCreator.exceptions.EmailOrUsernameAlreadyExistsException;
 
 public class UserService {
 
@@ -14,10 +15,9 @@ public class UserService {
 
     public User registerNewUserAccount(UserDTO userDto) {
         if (emailExist(userDto.getEmail()) || usernameExist(userDto.getUsername())) {
-            throw new EmailOrUsernameExistException(
-                    "There is an account with that email address: "
-                            + userDto.getEmail() + " or username: "
-                    + userDto.getUsername());
+            throw new EmailOrUsernameAlreadyExistsException(
+                    "There already exists an account with that email address: " + userDto.getEmail() +
+                            " or username: " + userDto.getUsername());
         }
         User user = new User();
         user.setUsername(userDto.getUsername());

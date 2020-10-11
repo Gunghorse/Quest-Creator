@@ -9,7 +9,6 @@ import lombok.experimental.SuperBuilder;
 import org.neo4j.ogm.annotation.Relationship;
 import org.springframework.data.geo.Point;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
