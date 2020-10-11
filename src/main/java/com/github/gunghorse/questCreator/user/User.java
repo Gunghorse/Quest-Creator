@@ -47,16 +47,9 @@ public class User {
         createdQuests.add(quest);
     }
 
-    public void startQuestSession(Quest quest){
+    public void startQuestSession(Quest quest) {
         quest.addPlayer(this);
-
-    @Transient
-    private HashSet<Quest> completedQuestsId = new HashSet<>();
-    @Transient
-    private HashMap<Quest, HashSet<QuestPoint>> activeQuestsVisitedPoints = new HashMap<>();
-    @Transient
-    private HashMap<Quest, HashSet<QuestPoint>> activeQuestsVisiblePoints = new HashMap<>();
-
+    }
 
     public boolean addActiveQuest(Quest quest){
         if (quest == null) return false;
@@ -65,6 +58,7 @@ public class User {
         points.add(quest.getStartPoint());
         activeQuestsVisiblePoints.put(quest, points);
         activeQuestsVisitedPoints.put(quest, new HashSet<>());
+        return true;
     }
 
     public void visitPoint(Quest quest, QuestPoint point){
