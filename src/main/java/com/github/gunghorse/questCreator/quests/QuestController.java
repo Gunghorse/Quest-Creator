@@ -141,13 +141,17 @@ public class QuestController {
         Quest quest = questRepository.findById(questPointDTO.getQuestID()).get();
         QuestPoint questPoint;
         if(quest.getPoints().isEmpty()){
-            questPoint = new QuestStartPoint(questPointDTO.getTitle(),
-                    questPointDTO.getDescription(),
-                    new Point(questPointDTO.getLongitude(), questPointDTO.getLatitude()));
+            questPoint = QuestStartPoint.builder()
+                    .title(questPointDTO.getTitle())
+                    .description(questPointDTO.getDescription())
+                    .location(new Point(questPointDTO.getLongitude(), questPointDTO.getLatitude()))
+                    .build();
         }else{
-            questPoint = new QuestPoint(questPointDTO.getTitle(),
-                    questPointDTO.getDescription(),
-                    new Point(questPointDTO.getLongitude(), questPointDTO.getLatitude()));
+            questPoint = QuestPoint.builder()
+                    .title(questPointDTO.getTitle())
+                    .description(questPointDTO.getDescription())
+                    .location(new Point(questPointDTO.getLongitude(), questPointDTO.getLatitude()))
+                    .build();;
         }
         quest.setPoint(questPoint);
         questPointRepository.save(questPoint);
