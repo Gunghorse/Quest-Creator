@@ -25,7 +25,7 @@ public class QuestPoint {
     @Id
     @GeneratedValue
     protected Long id;
-    protected QuestPointStatus pointStatus;
+    //protected QuestPointStatus pointStatus;
     protected String title;
     protected String description;
     @Convert(PointConverter.class) private Point location;
