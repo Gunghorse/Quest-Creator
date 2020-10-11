@@ -30,7 +30,6 @@ public class QuestPoint {
     //TODO: @Builder.Default
     protected Long id;
     //TODO: @Builder.Default
-    protected QuestPointStatus pointStatus;
     protected String title;
     protected String description;
     @Convert(PointConverter.class) private Point location;
