@@ -1,10 +1,14 @@
 package com.github.gunghorse.questCreator.user;
 
 import com.github.gunghorse.questCreator.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("${v1API}/user")
@@ -30,22 +34,33 @@ public class UserController {
         return userRepository.findByUsername(name);
     }
 
+    @RequestMapping(value="/login", method = RequestMethod.GET)
+    public void login(HttpServletRequest req){
+        System.out.println("Login");
+        //return userRepository.findByUsername(name);
+    }
+
     /**
      * URL looks like:
      *      GET /user/logout
      *
      * Check if login and password correct and if such user is in system
-     * @param req HttpServletRequest for calling logout
+     * @param request HttpServletRequest for calling logout
      * @return true if everything ok
      */
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public boolean logout(HttpServletRequest req){
-        try {
-            req.logout();
-            return true;
-        } catch (ServletException e) {
-            return false;
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public String logoutDo(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session= request.getSession(false);
+        SecurityContextHolder.clearContext();
+        session= request.getSession(false);
+        if(session != null) {
+            session.invalidate();
         }
+        for(Cookie cookie : request.getCookies()) {
+            cookie.setMaxAge(0);
+        }
+
+        return "logout";
     }
 
     /**
