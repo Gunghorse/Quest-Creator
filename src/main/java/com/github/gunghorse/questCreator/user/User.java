@@ -56,8 +56,8 @@ public class User {
         activeQuestsVisitedPoints.put(quest, new HashSet<>());
     }
 
-    public boolean visitPoint(Quest quest, QuestPoint point){
-        if (quest == null || point == null) return false;
+    public void visitPoint(Quest quest, QuestPoint point){
+        if (quest == null || point == null) return;
 
         HashSet<QuestPoint> visible = activeQuestsVisiblePoints.get(quest);
         visible.remove(point);
@@ -71,7 +71,5 @@ public class User {
             activeQuestsVisitedPoints.remove(quest);
             activeQuestsVisiblePoints.remove(quest);
         }
-
-        return true;
     }
 }
