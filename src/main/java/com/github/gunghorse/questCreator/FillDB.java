@@ -1,6 +1,10 @@
 package com.github.gunghorse.questCreator;
 
 import com.github.gunghorse.questCreator.quests.points.*;
+import com.github.gunghorse.questCreator.repositories.QuestPointRepository;
+import com.github.gunghorse.questCreator.repositories.QuestRepository;
+import com.github.gunghorse.questCreator.repositories.QuestStartPointRepository;
+import com.github.gunghorse.questCreator.repositories.UserRepository;
 import com.github.gunghorse.questCreator.user.*;
 import com.github.gunghorse.questCreator.quests.*;
 
@@ -8,7 +12,6 @@ import com.github.gunghorse.questCreator.quests.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.geo.Point;
-import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;

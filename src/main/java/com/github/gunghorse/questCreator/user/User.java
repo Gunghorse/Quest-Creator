@@ -9,9 +9,7 @@ import org.neo4j.ogm.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.neo4j.ogm.annotation.Relationship.INCOMING;
 import static org.neo4j.ogm.annotation.Relationship.OUTGOING;
-
 
 @NodeEntity
 public class User {

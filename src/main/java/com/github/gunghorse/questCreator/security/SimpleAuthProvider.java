@@ -1,7 +1,7 @@
 package com.github.gunghorse.questCreator.security;
 
 import com.github.gunghorse.questCreator.user.User;
-import com.github.gunghorse.questCreator.user.UserRepository;
+import com.github.gunghorse.questCreator.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
