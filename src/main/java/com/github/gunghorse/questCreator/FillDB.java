@@ -71,8 +71,10 @@ public class FillDB implements CommandLineRunner {
         darkStalker.setPassword("1234");
         darkStalker.setUsername("DarkStalker");
 
-        Quest kingsWay = new Quest("Droga królewska",
-                "Piękne zabytki po drodze od Barbakana do Wawela");
+        Quest kingsWay = Quest.builder()
+                .title("Droga królewska")
+                .description("Piękne zabytki po drodze od Barbakana do Wawela")
+                .build();
 
         User dimoniumUser = userService.registerNewUserAccount(dimonium);
         User darkStalkerUser = userService.registerNewUserAccount(darkStalker);
@@ -81,7 +83,7 @@ public class FillDB implements CommandLineRunner {
 
         /*
         QuestStartPoint barbakan = QuestStartPoint.builder()
-                .pointStatus(QuestPointStatus.VISITED.VISITED)
+                //.pointStatus(QuestPointStatus.VISITED.VISITED)
                 .title( "Barbakan")
                 .description("Został wzniesiony w latach 1498–1499 za panowania króla Jana Olbrachta w obawie przed najazdem " +
                         "wołosko-tureckim zagrażającym Krakowowi po klęsce bukowińskiej. Inspiracją do tej decyzji były " +
@@ -94,9 +96,8 @@ public class FillDB implements CommandLineRunner {
 
         kingsWay.setStartPoint(barbakan);
 
-
         QuestPoint bramaFloreanska = QuestPoint.builder()
-                .pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
+                //.pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
                 .title("Brama Floreanska")
                 .description("Średniowieczna brama z basztą, położona na Starym Mieście w Krakowie u końca ulicy " +
                         "Floriańskiej, przy skrzyżowaniu z ulicą Pijarską. Stanowi pozostałość po dawnych murach " +
@@ -109,7 +110,7 @@ public class FillDB implements CommandLineRunner {
         bramaFloreanska.addParent(barbakan);
 
         QuestPoint kosciolMariacki = QuestPoint.builder()
-                .pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
+                //.pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
                 .title("Koscioł Mariacki")
                 .description( "Jeden z największych i najważniejszych, po archikatedrze wawelskiej, kościołów Krakowa, " +
                         "od 1962 roku posiadający tytuł bazyliki mniejszej. Należy do najbardziej znanych zabytków Krakowa i Polski. " +
@@ -123,7 +124,7 @@ public class FillDB implements CommandLineRunner {
         kosciolMariacki.addParent(bramaFloreanska);
 
         QuestPoint sukiennice = QuestPoint.builder()
-                .pointStatus(QuestPointStatus.UNVISITED.INVISIBLE)
+                //.pointStatus(QuestPointStatus.UNVISITED.INVISIBLE)
                 .title("Sukiennice")
                 .description("Sukiennice podlegały przez wieki wielu przemianom i ich obecny kształt w niczym nie " +
                             "przypomina dawnych sukiennic. Już w roku 1257 książę Bolesław Wstydliwy przy lokacji Krakowa " +
@@ -137,7 +138,7 @@ public class FillDB implements CommandLineRunner {
 
         // Here we make fork
         QuestPoint stAnne = QuestPoint.builder()
-                .pointStatus(QuestPointStatus.UNVISITED.INVISIBLE)
+                //.pointStatus(QuestPointStatus.UNVISITED.INVISIBLE)
                 .title("Kościół św. Anny")
                 .description("Zabytkowa, barokowa kolegiata rzymskokatolicka położona " +
                         "przy ulicy św. Anny 13 w Krakowie. Jest kościołem akademickim Uniwersytetu Jagiellońskiego, " +
@@ -149,7 +150,7 @@ public class FillDB implements CommandLineRunner {
         stAnne.addParent(sukiennice);
 
         QuestPoint uj = QuestPoint.builder()
-                .pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
+                //.pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
                 .title("Uniwersytet Jagielloński")
                 .description("Uniwersytet (studium generale) został założony w 1364 roku w Kazimierzu" +
                         " z fundacji Kazimierza III Wielkiego, i składał się początkowo z trzech wydziałów: " +
@@ -165,7 +166,7 @@ public class FillDB implements CommandLineRunner {
         uj.addParent(stAnne);
 
         QuestPoint stFranciszek = QuestPoint.builder()
-                .pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
+                //.pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
                 .title("Bazylika Franciszkanów św. Franciszka z Asyżu")
                 .description("W roku 1236 lub 1237 książę Henryk Pobożny sprowadził franciszkanów z Pragi. " +
                         "Kościół został rozbudowany około 1269 roku[2] i następnie w 1279 roku została w nim " +
@@ -188,7 +189,7 @@ public class FillDB implements CommandLineRunner {
         stFranciszek.addParent(uj);
 
         QuestPoint wsd = QuestPoint.builder()
-                .pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
+                //.pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
                 .title("Wyższe Seminarium Duchowne Archidiecezji Krakowskiej")
                 .description("W 1601 na synodzie diecezjalnym wydano dekret o powstaniu seminarium. " +
                         "Z kolei 20 grudnia 1602 kard. Bernard Maciejowski podejmuje decyzję o erygowaniu seminarium. " +
@@ -211,7 +212,7 @@ public class FillDB implements CommandLineRunner {
 
         // Another branch
         QuestPoint stWojciech = QuestPoint.builder()
-                .pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
+                //.pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
                 .title("Kościół Świętego Wojciecha")
                 .description("Wedle tradycji w tym miejscu miał głosić kazania św. Wojciech, " +
                         "a na pamiątkę tego wydarzenia miał powstać drewniany kościółek. " +
@@ -230,7 +231,7 @@ public class FillDB implements CommandLineRunner {
         stWojciech.addParent(sukiennice);
 
         QuestPoint poitraIPawla = QuestPoint.builder()
-                .pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
+                //.pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
                 .title( "Kościół św. Apostołów Piotra i Pawła")
                 .description("Jest to pierwsza budowla architektury barokowej w Krakowie. " +
                         "Ufundowana została dla jezuitów przez króla Zygmunta III Wazę. " +
@@ -245,7 +246,7 @@ public class FillDB implements CommandLineRunner {
         poitraIPawla.addParent(stWojciech);
 
         QuestPoint stAndrzej = QuestPoint.builder()
-                .pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
+                //.pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
                 .title("Kościół św. Andrzeja w Krakowie")
                 .description("Kościół zbudowano w latach 1079–1098, z fundacji palatyna Sieciecha. " +
                         "Był główną świątynią osady Okół. Znajdował się początkowo pod patronatem benedyktynów " +
@@ -267,7 +268,7 @@ public class FillDB implements CommandLineRunner {
         stAndrzej.addParent(poitraIPawla);
 
         QuestPoint stIdzi = QuestPoint.builder()
-                .pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
+                //.pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
                 .title("Kościół św. Idziego w Krakowie")
                 .description("Według tradycji został on wybudowany w końcu XI w. przez księcia Władysława Hermana " +
                         "jako dziękczynienie po urodzeniu się jego syna Bolesława Krzywoustego, które mieli zawdzięczać " +
@@ -285,7 +286,7 @@ public class FillDB implements CommandLineRunner {
         // End branch
 
         QuestPoint wawel = QuestPoint.builder()
-                .pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
+                //.pointStatus(QuestPointStatus.UNVISITED.VISIBLE)
                 .title("Zamek Królewski na Wawelu")
                 .description("Zamek był na przestrzeni wieków wielokrotnie rozbudowywany i odnawiany. " +
                         "Liczne pożary, grabieże i przemarsze obcych wojsk, połączone z niszczeniem " +
