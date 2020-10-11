@@ -3,6 +3,11 @@ package com.github.gunghorse.questCreator.quests.points;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.gunghorse.questCreator.quests.Quest;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -18,10 +23,13 @@ import static org.neo4j.ogm.annotation.Relationship.*;
 
 
 @NodeEntity
+@Getter @Setter @SuperBuilder
 public class QuestPoint {
     @Id
     @GeneratedValue
+    //TODO: @Builder.Default
     protected Long id;
+    //TODO: @Builder.Default
     protected QuestPointStatus pointStatus;
     protected String title;
     protected String description;
@@ -39,26 +47,6 @@ public class QuestPoint {
     @JsonIgnoreProperties({"quest","children"})
     @Relationship(type = "LEAD_TO", direction = INCOMING)
     protected List<QuestPoint> parents = new LinkedList<>();
-
-    public QuestPoint(){}
-
-    public QuestPoint(String title,
-                      String description,
-                      Point location) {
-        this.title = title;
-        this.description = description;
-        this.location = location;
-    }
-
-    public QuestPoint(QuestPointStatus pointStatus,
-                      String title,
-                      String description,
-                      Point location) {
-        this.pointStatus = pointStatus;
-        this.title = title;
-        this.description = description;
-        this.location = location;
-    }
 
     @JsonIgnoreProperties
     public Quest getQuest() {
@@ -87,41 +75,5 @@ public class QuestPoint {
     public void addParent(QuestPoint parent) {
         this.parents.add(parent);
         parent.addChild(this);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public QuestPointStatus getPointStatus() {
-        return pointStatus;
-    }
-
-    public void setPointStatus(QuestPointStatus pointStatus) {
-        this.pointStatus = pointStatus;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Point getLocation() {
-        return location;
-    }
-
-    public void setLocation(Point location) {
-        this.location = location;
     }
 }
