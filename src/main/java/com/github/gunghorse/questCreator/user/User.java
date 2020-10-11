@@ -6,10 +6,10 @@ import com.github.gunghorse.questCreator.Keys;
 import com.github.gunghorse.questCreator.quests.Quest;
 import lombok.Getter;
 import lombok.Setter;
+
 import org.neo4j.ogm.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.neo4j.ogm.annotation.Relationship.OUTGOING;
 
@@ -46,5 +46,38 @@ public class User {
     public void startQuestSession(Quest quest){
         playing.add(quest);
         quest.addPlayer(this);
+    }
+
+    private HashSet<Quest> completedQuestsId = new HashSet<>();
+    private HashMap<Quest, HashSet<QuestPoint>> activeQuestsVisitedPoints = new HashMap<>();
+    private HashMap<Quest, HashSet<QuestPoint>> activeQuestsVisiblePoints = new HashMap<>();
+
+
+    public boolean addActiveQuest(Quest quest){
+        if (quest == null) return false;
+        HashSet<QuestPoint> points = new HashSet<>();
+        points.add(quest.getStartPoint());
+        activeQuestsVisiblePoints.put(quest, points);
+        activeQuestsVisitedPoints.put(quest, new HashSet<>());
+        return true;
+    }
+
+    public boolean visitPoint(Quest quest, QuestPoint point){
+        if (quest == null || point == null) return false;
+
+        HashSet<QuestPoint> visible = activeQuestsVisiblePoints.get(quest);
+        visible.remove(point);
+        visible.addAll(point.getChildren());
+
+        HashSet<QuestPoint> visited = activeQuestsVisitedPoints.get(quest);
+        visited.add(point);
+
+        if (visited.size() == quest.getPoints().size()){    // if quest completed
+            completedQuestsId.add(quest);
+            activeQuestsVisitedPoints.remove(quest);
+            activeQuestsVisiblePoints.remove(quest);
+        }
+
+        return true;
     }
 }
